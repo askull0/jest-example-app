@@ -41,5 +41,9 @@ describe('Jest Example App', () => {
     renderedComponent.find(selector).simulate('click');
 
     expect(renderedComponent.find(selector).prop('src')).toBe('neko.gif');
+
+    renderedComponent.find(selector).simulate('click');
+
+    expect(renderedComponent.find(selector).prop('src').name).toBe('logo');
   });
 });
