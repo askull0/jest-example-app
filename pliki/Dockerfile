@@ -1,0 +1,15 @@
+FROM node:16
+
+WORKDIR /home/lab5_app
+
+RUN git clone https://github.com/Qba02/jest-example-app.git
+
+WORKDIR /home/lab5_app/jest-example-app
+
+RUN yarn install --omit=dev
+RUN yarn run build
+RUN yarn global add serve
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "build"]
