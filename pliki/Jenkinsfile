@@ -10,7 +10,6 @@ pipeline {
             steps {
                 echo "Building ..."
                 sh '''
-                cd ./home/lab5_app
                 docker build -t ob_build:latest -f Dockerfile .
                 docker run --name container_build ob_build:latest
                 '''
@@ -20,7 +19,6 @@ pipeline {
             steps {
                 echo "Testing ..."
                 sh '''
-                cd ./home/lab5_app
                 docker build -t ob_test:latest -f DockerfileTest .
                 docker run --name container_test ob_test:latest
                 '''
@@ -30,7 +28,6 @@ pipeline {
             steps {
                 echo 'logi:'
                 sh '''
-                cd ./home/lab5_app
                 docker logs container_build > logi-build.txt
                 docker logs container_test > logi-test.txt
                 '''
