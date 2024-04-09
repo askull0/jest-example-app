@@ -9,32 +9,38 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building ..."
-                sh '''
-                cd ./dockery
-                docker build -t ob_build:latest -f Dockerfile .
-                docker run --name container_build ob_build:latest
-                '''
+                script {
+                    dir('dockery') {
+                        sh 'docker build -t ob_build:latest -f Dockerfile .'
+                        sh 'docker run --name container_build ob_build:latest'
+                    }
+                }
             }
         }
-        stage('Test') {
-            steps {
-                echo "Testing ..."
-                sh '''
-                cd ./dockery
-                docker build -t ob_test:latest -f DockerfileTest .
-                docker run --name container_test ob_test:latest
-                '''
+
+    stage('Test') {
+        steps {
+            echo "Testing ..."
+            script {
+                dir('dockery') {
+                    sh 'docker build -t ob_test:latest -f DockerfileTest .'
+                    sh 'docker run --name container_test ob_test:latest'
+                }
             }
         }
-        stage('logi') {
-            steps {
-                echo 'logi:'
-                sh '''
-                cd ./dockery
-                docker logs container_build > logi-build.txt
-                docker logs container_test > logi-test.txt
-                '''
+    }
+
+    stage('logi') {
+        steps {
+            echo 'logi:'
+            script {
+                dir('dockery') {
+                    sh 'docker logs container_build > logi-build.txt'
+                    sh 'docker logs container_test > logi-test.txt'
+                }
             }
         }
+    }
+
     }
 }
