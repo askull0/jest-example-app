@@ -12,7 +12,7 @@ pipeline {
                 sh '''
                 cd ./pliki/dockery
                 docker build -t ob_build:latest -f Dockerfile .
-                docker run --name container_build ob_build:latest && docker wait container_build && docker stop container_build
+                docker run --name container_build ob_build:latest
                 '''
             }
         }
@@ -22,7 +22,7 @@ pipeline {
                 sh '''
                 cd ./pliki/dockery
                 docker build -t ob_test:latest -f DockerfileTest .
-                docker run --name container_test ob_test:latest && docker wait container_test && docker stop container_test
+                docker run --name container_test ob_test:latest
                 '''
             }
         }

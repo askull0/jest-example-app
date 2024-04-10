@@ -10,4 +10,4 @@ RUN yarn install --omit=dev
 RUN yarn run build
 RUN yarn global add serve
 
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s", "build", "--once"]
