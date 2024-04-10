@@ -11,7 +11,7 @@ pipeline {
                 echo "Build and test"
                 sh '''
                 cd ./pliki/dockery
-                docker compose up --exit-code-from app
+                docker compose up --exit-code-from test
                 '''
             }
         }
@@ -20,8 +20,8 @@ pipeline {
                 echo 'logi:'
                 sh '''
                 cd ./pliki/dockery
-                docker logs container_build > logi-build.txt
-                docker logs container_test > logi-test.txt
+                docker logs ob_build:latest > logi-build.txt
+                docker logs ob_test:latest > logi-test.txt
                 docker compose down
                 '''
             }
