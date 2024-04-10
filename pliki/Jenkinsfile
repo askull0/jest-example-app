@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build & test') {
             steps {
-                echo "Build and test"
+                echo "Build and test change"
                 sh '''
                 cd ./pliki/dockery
                 docker compose up --exit-code-from test
