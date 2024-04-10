@@ -20,8 +20,8 @@ pipeline {
                 echo 'logi:'
                 sh '''
                 cd ./pliki/dockery
-                docker logs app > logi-build.txt
-                docker logs test > logi-test.txt
+                docker compose logs app > logi-build.txt
+                docker compose logs test > logi-test.txt
                 docker compose down
                 '''
             }
