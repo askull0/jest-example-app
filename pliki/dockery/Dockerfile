@@ -1,13 +1,12 @@
 FROM node:16
 
-WORKDIR /home/lab5_app
+WORKDIR /home
 
-RUN git clone https://github.com/Qba02/jest-example-app.git
+RUN git clone https://github.com/askull0/jest-example-app
 
-WORKDIR /home/lab5_app/jest-example-app
+WORKDIR /home/jest-example-app
 
 RUN yarn install 
 RUN yarn run build
 RUN yarn global add serve
 
-CMD ["serve", "-s", "build"]

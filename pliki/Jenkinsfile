@@ -6,9 +6,19 @@ pipeline {
     }
 
     stages {
+        stage('Clear'){
+            steps{
+                echo "czystka"
+                sh '''
+                cd ./dockery
+                chmod +x clear.sh
+                ./clear.sh
+                '''
+            }
+        }
         stage('Build & test') {
             steps {
-                echo "Build and test change"
+                echo "Build and test "
                 sh '''
                 cd ./pliki/dockery
                 docker compose up --exit-code-from test
@@ -23,6 +33,16 @@ pipeline {
                 docker compose logs app > logi-build.txt
                 docker compose logs test > logi-test.txt
                 docker compose down
+                '''
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'deploy ..'
+                sh '''
+                cd ./pliki/dockery
+                docker build --no-cache -t ob_deploy -f DockerfileDeploy .
+                docker run -d -p 12345:3000 --name kon_deploy ob_deploy
                 '''
             }
         }
