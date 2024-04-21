@@ -10,7 +10,7 @@ pipeline {
             steps{
                 echo "czystka"
                 sh '''
-                cd ./dockery
+                cd ./pliki/dockery
                 chmod +x clear.sh
                 ./clear.sh
                 '''
