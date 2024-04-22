@@ -59,7 +59,7 @@ pipeline {
                 docker cp kon_deploy:home/build .
                 cd ..
                 pwd
-                tar -czf artefact.tar.gz -C artefact/ .
+                tar -czf artefact.tar.gz artefact/
         
                 archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
             
