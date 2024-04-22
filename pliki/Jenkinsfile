@@ -52,13 +52,11 @@ pipeline {
                 echo 'archiving and publishing ..'
                 sh '''
                 
-                pwd
                 mkdir -p ./artefact
                 cd artefact
-                pwd
                 docker cp kon_deploy:home/build .
                 cd ..
-                pwd
+                rm archive.tar.gz
                 tar -czf artefact.tar.gz -C artefact/ .
                 '''
 
