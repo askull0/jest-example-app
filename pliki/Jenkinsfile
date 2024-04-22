@@ -5,6 +5,11 @@ pipeline {
         pollSCM('*/1 * * * *')
     }
 
+    environment{
+    DOCKERHUB_CREDENTIALS = credentials('askull1-dockerhub')
+    IMAGE_NAME = "jestapp:v1.${env.BUILD_NUMBER}"
+}
+
     stages {
         stage('Clear'){
             steps{
@@ -51,17 +56,24 @@ pipeline {
             steps {
                 echo 'archiving and publishing ..'
                 sh '''
-                
                 mkdir -p ./artefact
                 cd artefact
                 docker cp kon_deploy:home/build .
                 cd ..
-                rm archive.tar.gz
                 tar -czf artefact.tar.gz -C artefact/ .
                 '''
-
                 archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
     
+                echo "Publishing "
+                sh '''
+                TODAY_DATE = new Date().format('yyyyMMdd')
+
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                docker tag ob_deploy askull1/ob_deploy.${TODAY_DATE}
+                docker tag ob_deploy askull1/ob_deploy:latest
+                docker push askull1/ob_deploy.${TODAY_DATE}
+                docker push askull1/ob_deploy:latest
+                '''
                
             }
         }
