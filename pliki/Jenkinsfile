@@ -65,7 +65,7 @@ pipeline {
     
                 echo "Publishing "
                 sh '''
-                TODAY_DATE = new Date().format('yyyyMMdd')
+                export TODAY_DATE=$(date +%Y%m%d)
 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 docker tag ob_deploy askull1/ob_deploy.${TODAY_DATE}
