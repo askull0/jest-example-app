@@ -43,6 +43,22 @@ pipeline {
                 cd ./pliki/dockery
                 docker build --no-cache -t ob_deploy -f DockerfileDeploy .
                 docker run -d -p 12345:3000 --name kon_deploy ob_deploy
+            
+                '''
+            }
+        }
+        stage('publish') {
+            steps {
+                echo 'archiving and publishing ..'
+                sh '''
+                
+                mkdir -p artefact
+                cd ./artefact
+                docker cp kon_deploy:home/build .
+                tar -czf artefact.tar.gz -C artefact/ .
+        
+                archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+            
                 '''
             }
         }
