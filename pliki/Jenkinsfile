@@ -53,13 +53,13 @@ pipeline {
                 sh '''
                 
                 pwd
-                mkdir -p ./artefact
-                cd artefact
+                mkdir -p ./archive
+                cd archive
                 pwd
                 docker cp kon_deploy:home/build .
                 cd ..
                 pwd
-                tar -czf artefact.tar.gz artefact/
+                tar -czf archive.tar.gz archive/
         
                 archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
             
