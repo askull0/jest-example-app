@@ -52,10 +52,11 @@ pipeline {
                 echo 'archiving and publishing ..'
                 sh '''
                 
-                cd ./pliki/
+                pwd
                 mkdir -p ./artefact
-                cd ./pliki/artefact
+                cd artefact
                 docker cp kon_deploy:home/build .
+                cd ../
                 tar -czf artefact.tar.gz -C artefact/ .
         
                 archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
