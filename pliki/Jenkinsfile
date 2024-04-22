@@ -53,17 +53,18 @@ pipeline {
                 sh '''
                 
                 pwd
-                mkdir -p ./archive
-                cd archive
+                mkdir -p ./artefact
+                cd artefact
                 pwd
                 docker cp kon_deploy:home/build .
                 cd ..
                 pwd
-                tar -czf archive.tar.gz archive/
-        
-                archiveArtifacts(artifacts: 'archive.tar.gz', onlyIfSuccessful: true)
-            
+                tar -czf artefact.tar.gz -C artefact/ .
                 '''
+
+                archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+    
+               
             }
         }
     }
