@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        pollSCM('*/3 * * * *')
+        pollSCM('*/1 * * * *')
     }
 
     stages {
@@ -52,8 +52,9 @@ pipeline {
                 echo 'archiving and publishing ..'
                 sh '''
                 
-                mkdir -p artefact
-                cd ./artefact
+                cd ./pliki/
+                mkdir -p ./artefact
+                cd ./pliki/artefact
                 docker cp kon_deploy:home/build .
                 tar -czf artefact.tar.gz -C artefact/ .
         
