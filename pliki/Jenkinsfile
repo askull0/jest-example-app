@@ -61,7 +61,7 @@ pipeline {
                 pwd
                 tar -czf archive.tar.gz archive/
         
-                archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+                archiveArtifacts(artifacts: 'archive.tar.gz', onlyIfSuccessful: true)
             
                 '''
             }
