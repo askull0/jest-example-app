@@ -68,9 +68,9 @@ pipeline {
                 export TODAY_DATE=$(date +%Y%m%d)
 
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                docker tag ob_deploy askull1/ob_deploy:20240422
+                docker tag ob_deploy askull1/ob_deploy:${TODAY_DATE}
                 docker tag ob_deploy askull1/ob_deploy:latest
-                docker push askull1/ob_deploy:20240422
+                docker push askull1/ob_deploy:${TODAY_DATE}
                 docker push askull1/ob_deploy:latest
                 '''
                
